@@ -1,0 +1,39 @@
+version: '3'
+services:
+  challenge_db:
+    image: mysql:latest
+    container_name: enoya_verifarma_db
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: verifarma
+      MYSQL_ROOT_PASSWORD: VerifarmaChallenge
+      MYSQL_ROOT_HOST: "%"
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - app-network
+  challenge_api:
+    depends_on: 
+      - challenge_db
+    container_name: enoya_verifarma_api
+    build: 
+      context: .
+      dockerfile: ./ApiDockerfile
+    ports:
+      - "8001:8000"
+    environment:
+      APP_NAME: verifarma-challenge
+      APP_ENV: local
+      APP_KEY: base64:N+kV8rPEzIwbzm0FgoH/hupnnQi1LSa9xV5SHq35k0o=
+      DB_CONNECTION: mysql
+      DB_HOST: challenge_db
+      DB_PORT: 3306
+      DB_DATABASE: verifarma
+      DB_USERNAME: root
+      DB_PASSWORD: VerifarmaChallenge
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "0f1eceeb-2df6-497b-a3c6-b7a89b0699f0",
+		"name": "Verifarma",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20219087"
+	},
+	"item": [
+		{
+			"name": "Create Pharmacy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();\r",
+							"pm.environment.set(\"lastPharmacyCreated\", jsonData.pharmacy_id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Dr Ahorro\",\r\n    \"addresses\": [\r\n        {\r\n            \"address\" : \"Av. Caseros 2979\",\r\n            \"latitude\" : \"-34.6425577\",\r\n            \"longitude\" : \"-58.4143663\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/farmacia",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"farmacia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pharmacy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Farmacia Azul\",\r\n    \"addresses\": [\r\n        {\r\n            \"address\" : \"Caseros 2800\",\r\n            \"latitude\" : \"90\",\r\n            \"longitude\" : \"180\"\r\n        },\r\n        {\r\n            \"address\" : \"Caseros 2000\",\r\n            \"latitude\" : \"89\",\r\n            \"longitude\" : \"179\"\r\n        } \r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/farmacia/:id",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"farmacia",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{lastPharmacyCreated}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Nearby Pharmacies",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Farmacia Azul\",\r\n    \"addresses\": [\r\n        {\r\n            \"address\" : \"Caseros 2800\",\r\n            \"latitude\" : \"90\",\r\n            \"longitude\" : \"180\"\r\n        },\r\n        {\r\n            \"address\" : \"Caseros 2000\",\r\n            \"latitude\" : \"89\",\r\n            \"longitude\" : \"179\"\r\n        } \r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/farmacia/?latitude=-34.646478&longitud=-58.4026048",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"farmacia",
+						""
+					],
+					"query": [
+						{
+							"key": "latitude",
+							"value": "-34.646478"
+						},
+						{
+							"key": "longitud",
+							"value": "-58.4026048"
+						},
+						{
+							"key": "distance",
+							"value": "30",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
