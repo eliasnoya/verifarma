@@ -12,7 +12,7 @@ Ejecutar con docker-compose (no linkeado por volumen)
 
 ```bash
 git clone https://github.com/eliasnoya/verifarma.git
-cd verifarma-challenge
+cd verifarma
 docker-compose up
 docker exec enoya_verifarma_api php /api/artisan migrate --seed
 ```
@@ -21,7 +21,7 @@ Ejecutar local (se debe tener composer, php 8.2 y una base de datos instalada + 
 
 ```bash
 git clone https://github.com/eliasnoya/verifarma.git
-cd verifarma-challenge
+cd verifarma
 composer install
 php artisan migrate --seed
 php artisan serve
