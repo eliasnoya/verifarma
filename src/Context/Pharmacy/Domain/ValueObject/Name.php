@@ -21,7 +21,7 @@ final class Name implements InterfaceValueObject
     public function validate()
     {
         if (empty(trim($this->name))) {
-            throw new BlankValueException('Pharmacy must have a name');
+            throw new BlankValueException();
         }
     }
 

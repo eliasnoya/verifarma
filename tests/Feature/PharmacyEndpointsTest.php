@@ -14,7 +14,7 @@ class PharmacyEndpointsTest extends TestCase
     public function test_create_pharmacy_with_no_data_must_fail(): void
     {
         $response = $this->post('/farmacia', []);
-        $response->assertStatus(500);
+        $response->assertStatus(422); // unprocessable
     }
 
     public function test_create_pharmacy_ok(): void
@@ -45,7 +45,7 @@ class PharmacyEndpointsTest extends TestCase
     {
         /** @var \Illuminate\Testing\TestResponse $response */
         $response = $this->get('/farmacia'); // search without data
-        $response->assertInternalServerError();
+        $response->assertStatus(422); // unprocessable
     }
 
     public function test_nearby_feature_respond_ok(): void
