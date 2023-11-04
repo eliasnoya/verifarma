@@ -2,7 +2,7 @@
 
 Hola! buenas. Mi nombre es Elías y esta es la resolución del Challenge enviado por Valería.
 <br/>
-Dejo aquí algunos comentarios sobre usos y formas del codigo aqui presentado.
+Dejo aquí algunos comentarios sobre usos y planteos del codigo aquí presentado.
 
 <hr/>
 
@@ -28,6 +28,7 @@ php artisan serve
 ```
 
 <b>HTTP Port Exposed 8001</b>
+<br/>
 <b>MYSQL Port Exposed 3307</b>
 
 2. Ejecutar TEST
@@ -49,7 +50,7 @@ En tests/Unit existen pruebas sobre el dominio (allí hay 3 ejemplos del control
 En tests/Feature existen tests para los 3 endpoint del challenge.
 
 3. Se plantea una resolución del challenge con una arquitectura Hexagonal (separado en capas de Aplicación, Dominio e Infraestructura)
-4. El code analizer utilizado fue PHPStan https://phpstan.org/ en Nivel 2
+4. El code analizer utilizado fue [PHPStan](https://phpstan.org/) en Nivel 2 y en VSCode usé [SonarLint Extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode) para revisión en tiempo de escritura.
 
 ```bash
 .\vendor\bin\phpstan analyze src --level 2
@@ -61,8 +62,8 @@ En tests/Feature existen tests para los 3 endpoint del challenge.
  .\vendor\bin\pint .\src\
 ```
 
-6. En /Postman.json se encuentra una coleccion de requests con los 3 endpoints. La unica variable de entorno es _baseUrl_
-   usando docker-compose => setear en http://127.0.0.1:8001
+6. Documentación con Cliente HTTP Postman ubicada en <root>/Postman.json se encuentra formato 2.1 y tiene los 3 request para ejecutarlos secuencialmente y probar (Create->Get->Find) los 3 endpoints. La unica variable de entorno es base_url (setear en http://127.0.0.1:8001 en caso de usar el contenedor incluido)  
+   
 
 7. La solución de Log y Tracing implementada es 100% la capa de infrastructure (abstracto al dominio) con un Middelware
    [VER AQUI](https://github.com/eliasnoya/verifarma-challenge/blob/main/src/Shared/Infrastructure/Middleware/HttpLoggerMiddleware.php)
