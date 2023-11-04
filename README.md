@@ -62,7 +62,7 @@ En tests/Feature existen tests para los 3 endpoint del challenge.
  .\vendor\bin\pint .\src\
 ```
 
-6. Documentación con Cliente HTTP Postman ubicada en <root>/Postman.json se encuentra formato 2.1 y tiene los 3 request para ejecutarlos secuencialmente y probar (Create->Get->Find) los 3 endpoints. La unica variable de entorno es base_url (setear en "http://127.0.0.1:8001" en caso de usar el contenedor incluido)  
+6. Documentación con Cliente HTTP Postman ubicada en <root>/Postman.json se encuentra formato 2.1 y tiene los 3 request para ejecutarlos secuencialmente y probar (Create->Get->Find). La unica variable de entorno es base_url (setear en "http://127.0.0.1:8001" en caso de usar el contenedor incluido)  
    
 
 7. La solución de Log y Tracing propuesta es 100% la capa de infrastructure (abstracto al dominio) con un Middelware [VER AQUI](https://github.com/eliasnoya/verifarma-challenge/blob/main/src/Shared/Infrastructure/Middleware/HttpLoggerMiddleware.php). El mismo, guarda tanto el request como el response en una table en la base de datos llamada "logs"
