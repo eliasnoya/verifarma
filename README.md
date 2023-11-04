@@ -38,7 +38,7 @@ Desde Container:
 ```bash
 docker exec enoya_verifarma_api php /api/artisan test
 ```
-(desde el container va a indicar 2 <warnings> por que, convenientemente, no existe .env en ese contexto)
+(desde el container va a indicar 2 warnings por que, convenientemente, no existe .env en ese contexto)
 
 Local:
 
