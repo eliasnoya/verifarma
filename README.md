@@ -6,7 +6,7 @@ Dejo aquí algunos comentarios sobre usos y planteos del codigo aquí presentado
 
 <hr/>
 
-1. Stack: Mysql, PHP 8.2, Laravel 10. (Nginx y PHP-FPM en contenedor)
+1. Stack & Services: Mysql, PHP 8.2, Laravel 10, Supervisor, Nginx y PHP-FPM
 
 Ejecutar con docker-compose (no linkeado por volumen)
 
@@ -17,7 +17,7 @@ docker-compose up
 docker exec enoya_verifarma_api php /api/artisan migrate --seed
 ```
 
-Ejecutar local (se debe tener composer php 8.2 y una base de datos instalada + configuración en .env o variables de entorno):
+Ejecutar local (se debe tener composer, php 8.2 y una base de datos instalada + configuración en .env):
 
 ```bash
 git clone https://github.com/eliasnoya/verifarma-challenge.git
@@ -62,18 +62,14 @@ En tests/Feature existen tests para los 3 endpoint del challenge.
  .\vendor\bin\pint .\src\
 ```
 
-6. Documentación con Cliente HTTP Postman ubicada en <root>/Postman.json se encuentra formato 2.1 y tiene los 3 request para ejecutarlos secuencialmente y probar (Create->Get->Find) los 3 endpoints. La unica variable de entorno es base_url (setear en http://127.0.0.1:8001 en caso de usar el contenedor incluido)  
+6. Documentación con Cliente HTTP Postman ubicada en <root>/Postman.json se encuentra formato 2.1 y tiene los 3 request para ejecutarlos secuencialmente y probar (Create->Get->Find) los 3 endpoints. La unica variable de entorno es base_url (setear en "http://127.0.0.1:8001" en caso de usar el contenedor incluido)  
    
 
-7. La solución de Log y Tracing implementada es 100% la capa de infrastructure (abstracto al dominio) con un Middelware
-   [VER AQUI](https://github.com/eliasnoya/verifarma-challenge/blob/main/src/Shared/Infrastructure/Middleware/HttpLoggerMiddleware.php)
-   El mismo, guarda tanto el request como el response en una table en la base de datos llamada "logs"
+7. La solución de Log y Tracing propuesta es 100% la capa de infrastructure (abstracto al dominio) con un Middelware [VER AQUI](https://github.com/eliasnoya/verifarma-challenge/blob/main/src/Shared/Infrastructure/Middleware/HttpLoggerMiddleware.php). El mismo, guarda tanto el request como el response en una table en la base de datos llamada "logs"
 
-8. La gestion de errores la hace \Src\Shared\Infrastructure\SharedExceptionHandler en la implementación, con una funcionalidad básica separando los errores de dominio de infraesutrctura con el método reportable()
+8. La gestion de errores en la implementación la realiza unicamente [SharedExceptionHander](https://github.com/eliasnoya/verifarma/blob/main/src/Shared/Infrastructure/SharedExceptionHandler.php), separando los errores de cada capa involucrada con el método reportable() (Se genero contratos/abstracciones para diferenciar las excepciones de Dominio)
 
-9. En el docker-compose up se realiza la migración de la base de datos con 1 seeders para agregar 2 farmacias con 4 direcciones
-   [VER AQUI](https://github.com/eliasnoya/verifarma-challenge/blob/main/database/seeders/DatabaseSeeder.php)
+9. Deje un seeder que crea 2 farmacias en 4 direcciones para probar pero no es necesario ejecutarlos para que funcione la api [VER AQUI](https://github.com/eliasnoya/verifarma-challenge/blob/main/database/seeders/DatabaseSeeder.php)
 
-10. Todo el codigo fuente de la app esta en /src excepto /test, /database/migrations y /database/seeders.
-    Se quito todo lo de /app default de laravel para mayor simplicidad
-    @see /bootstrap/app.php
+10. Todo el codigo fuente de la app esta en <root>/src excepto <root>/test, <root>/database/migrations y <root>/database/seeders. Se quito todo lo de <root>/app default de laravel para mayor simplicidad
+    [VER LARAVEL BOOTSTRAP](https://github.com/eliasnoya/verifarma/blob/main/bootstrap/app.php)
